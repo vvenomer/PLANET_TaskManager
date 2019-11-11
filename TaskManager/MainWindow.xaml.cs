@@ -6,6 +6,7 @@ using TaskManager.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using TaskManager.UserControls;
 
 namespace TaskManager
 {
@@ -14,14 +15,14 @@ namespace TaskManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        public TaskManagerViewModel vm;
         public MainWindow()
         {
+            var vm = new TaskManagerViewModel();
+            DataContext = vm;
             InitializeComponent();
-            vm = new TaskManagerViewModel();
             processListGrid.ItemsSource = vm.processList;
             processListGrid.SelectedCellsChanged += vm.SelectedItemChanged;
-            processDetails.Document = vm.processDetails;
+            processDetails.ItemsSource = vm.details;
         }
     }
 }
