@@ -1,12 +1,6 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using TaskManager.ViewModel;
-using TaskManager.Model;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using TaskManager.UserControls;
 
 namespace TaskManager
 {
@@ -17,12 +11,48 @@ namespace TaskManager
     {
         public MainWindow()
         {
-            var vm = new TaskManagerViewModel();
+            var vm = new TaskManagerViewModel(SelectRadio);
             DataContext = vm;
             InitializeComponent();
-            processListGrid.ItemsSource = vm.processList;
+            processListGrid.ItemsSource = vm.ProcessList;
             processListGrid.SelectedCellsChanged += vm.SelectedItemChanged;
-            processDetails.ItemsSource = vm.details;
+            processDetails.ItemsSource = vm.Details;
+
+            vm.StartRefresh();
+        }
+
+        private void SelectRadio(ProcessPriorityClass? selectedProcessPriorityClass)
+        {
+            try
+            {
+                switch (selectedProcessPriorityClass)
+                {
+                    case ProcessPriorityClass.RealTime:
+                        RealTime.IsChecked = true;
+                        break;
+                    case ProcessPriorityClass.Idle:
+                        Idle.IsChecked = true;
+                        break;
+                    case ProcessPriorityClass.BelowNormal:
+                        BelowNormal.IsChecked = true;
+                        break;
+                    case ProcessPriorityClass.Normal:
+                        Normal.IsChecked = true;
+                        break;
+                    case ProcessPriorityClass.AboveNormal:
+                        AboveNormal.IsChecked = true;
+                        break;
+                    case ProcessPriorityClass.High:
+                        High.IsChecked = true;
+                        break;
+                    default:
+                        High.IsChecked = RealTime.IsChecked = Idle.IsChecked = BelowNormal.IsChecked = Normal.IsChecked = AboveNormal.IsChecked = false;
+                        break;
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }

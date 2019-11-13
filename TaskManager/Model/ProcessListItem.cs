@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -36,6 +32,7 @@ namespace TaskManager.Model
                             icon.Handle,
                             Int32Rect.Empty,
                             BitmapSizeOptions.FromEmptyOptions());
+                    IconSource.Freeze();
                 }
             }
             catch { IconSource = null; }

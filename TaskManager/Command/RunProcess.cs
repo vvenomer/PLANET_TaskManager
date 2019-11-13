@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using System.Windows.Input;
-using TaskManager.ViewModel;
 
 namespace TaskManager.Command
 {
-    public class DeleteProcess : ICommand
+    public class RunProcess : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {
-            var selectedProcess = (parameter as TaskManagerViewModel)?.SelectedProcess;
-            selectedProcess?.Proc.Kill();
+            new RunProcessWindow().Show();
         }
 
         public bool CanExecute(object parameter)

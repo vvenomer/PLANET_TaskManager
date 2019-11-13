@@ -4,14 +4,20 @@ using TaskManager.ViewModel;
 
 namespace TaskManager.Command
 {
-    public class DeleteProcess : ICommand
+    public class RefreshList : ICommand
     {
+        private readonly TaskManagerViewModel _taskManagerViewModel;
+
         public event EventHandler CanExecuteChanged;
+
+        public RefreshList(TaskManagerViewModel taskManagerViewModel)
+        {
+            _taskManagerViewModel = taskManagerViewModel;
+        }
 
         public void Execute(object parameter)
         {
-            var selectedProcess = (parameter as TaskManagerViewModel)?.SelectedProcess;
-            selectedProcess?.Proc.Kill();
+            _taskManagerViewModel.DoRefresh();
         }
 
         public bool CanExecute(object parameter)

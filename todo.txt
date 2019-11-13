@@ -1,3 +1,1 @@
-modyfikacje procesu - np. zmiane priorytetu itd.
-Lista procesow powinna odswiezac sie automatycznie/na zyczenie, miec mozliwosc filtrowania/sortowania
-Aplikacja powinna umozliwic uruchaminie procesu z zadanym timeoutem. Dla procesu powinien byc prezentowany (np w oddzielnym okienku niemodalnym, albo na liscie) progressbar pokazujacy czas pozostaly do timeoutu. Po przekroczeniu czasu proces powinien zostac zabity.
+Lista procesow powinna miec mozliwosc filtrowania

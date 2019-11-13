@@ -5,27 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
-    <Grid x:Name="MainGrid">
-        <DataGrid x:Name="processListGrid" Margin="0,0,0,295" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Icon">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Height="20" Source="{Binding IconSource}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Kill" HorizontalAlignment="Left" Margin="405,0,0,261" VerticalAlignment="Bottom" Height="25" Width="100" Command="{Binding ElementName=MainGrid, Path=DataContext.DeleteProcess}" CommandParameter="{Binding}"/>
-        <ItemsControl x:Name="processDetails" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="390" Height="290" Margin="10, 0, 0, 0">
-        </ItemsControl>
-        <RadioButton GroupName="Priority" Content="Real Time" HorizontalAlignment="Left" Margin="405,0,0,241" VerticalAlignment="Bottom" Width="100"/>
-        <RadioButton GroupName="Priority" Content="Idle" HorizontalAlignment="Left" Margin="405,0,0,226" VerticalAlignment="Bottom" Width="100"/>
-        <RadioButton GroupName="Priority" Content="Below Normal" HorizontalAlignment="Left" Margin="405,0,0,211" VerticalAlignment="Bottom" Width="100"/>
-        <RadioButton GroupName="Priority" Content="Normal" HorizontalAlignment="Left" Margin="405,0,0,196" VerticalAlignment="Bottom" Width="100"/>
-        <RadioButton GroupName="Priority" Content="Above Normal" HorizontalAlignment="Left" Margin="405,0,0,181" VerticalAlignment="Bottom" Width="100"/>
-        <RadioButton GroupName="Priority" Content="High" HorizontalAlignment="Left" Margin="405,0,0,166" VerticalAlignment="Bottom" Width="100"/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="View">
+                <MenuItem Header="Refresh Now" Command="{Binding ElementName=MainGrid, Path=DataContext.RefreshList}" CommandParameter="{Binding}"/>
+                <MenuItem Header="UpdateSpeed" Name="UpdateSpeed">
+                    <MenuItem Header="High" Command="{Binding ElementName=UpdateSpeed, Path=DataContext.UpdateSpeedChanged}" CommandParameter="{Binding ElementName=HighSpeed, Path=Header}" Name="HighSpeed"></MenuItem>
+                    <MenuItem Header="Normal" Command="{Binding ElementName=UpdateSpeed, Path=DataContext.UpdateSpeedChanged}" CommandParameter="{Binding ElementName=NormalSpeed, Path=Header}" Name="NormalSpeed"></MenuItem>
+                    <MenuItem Header="Low" Command="{Binding ElementName=UpdateSpeed, Path=DataContext.UpdateSpeedChanged}" CommandParameter="{Binding ElementName=LowSpeed, Path=Header}" Name="LowSpeed"></MenuItem>
+                    <MenuItem Header="Paused" Command="{Binding ElementName=UpdateSpeed, Path=DataContext.UpdateSpeedChanged}" CommandParameter="{Binding ElementName=Paused, Path=Header}" Name="Paused"></MenuItem>
+                </MenuItem>
+            </MenuItem >
+            <MenuItem Header="Run">
+                <MenuItem Header="Process" Command="{Binding ElementName=MainGrid, Path=DataContext.RunProcess}" CommandParameter="{Binding}"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="MainGrid">
+            <DataGrid x:Name="processListGrid" Margin="0,0,0,295" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Icon">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="20" Source="{Binding IconSource}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Kill" HorizontalAlignment="Left" Margin="405,0,0,261" VerticalAlignment="Bottom" Height="25" Width="100" Command="{Binding ElementName=MainGrid, Path=DataContext.DeleteProcess}" CommandParameter="{Binding}"/>
+            <ItemsControl x:Name="processDetails" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="390" Height="290" Margin="10, 0, 0, 0">
+            </ItemsControl>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding ElementName=RealTime, Path=Content}" Name="RealTime" Content="Real Time" HorizontalAlignment="Left" Margin="405,0,0,241" VerticalAlignment="Bottom" Width="100"/>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding ElementName=Idle, Path=Content}" x:Name="Idle"  Content="Idle" HorizontalAlignment="Left" Margin="405,0,0,226" VerticalAlignment="Bottom" Width="100"/>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding Content, ElementName=BelowNormal}" Name="BelowNormal" Content="Below Normal" HorizontalAlignment="Left" Margin="405,0,0,211" VerticalAlignment="Bottom" Width="100"/>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding Content, ElementName=Normal}" Name="Normal"  Content="Normal" HorizontalAlignment="Left" Margin="405,0,0,196" VerticalAlignment="Bottom" Width="100"/>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding ElementName=AboveNormal, Path=Content}" Name="AboveNormal"  Content="Above Normal" HorizontalAlignment="Left" Margin="405,0,0,181" VerticalAlignment="Bottom" Width="100"/>
+            <RadioButton GroupName="Priority" Command="{Binding ElementName=MainGrid, Path=DataContext.PriorityChanged}" CommandParameter="{Binding Content, ElementName=High}" Name="High"  Content="High" HorizontalAlignment="Left" Margin="405,0,0,166" VerticalAlignment="Bottom" Width="100"/>
+        </Grid>
+    </DockPanel>
 </Window>
